@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AERIS | Disaster Intelligence Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-mark">A</div>
+            <div>
+                <h2>AERIS</h2>
+                <span>DISASTER INTELLIGENCE</span>
+            </div>
+        </div>
+
+        <nav>
+            <a class="active" href="#dashboard">Dashboard</a>
+            <a href="#map">Live Map</a>
+            <a href="#detections">Detections</a>
+            <a href="#drone">Drone Fleet</a>
+            <a href="#missions">Mission Logs</a>
+            <a href="#analytics">Analytics</a>
+        </nav>
+
+        <div class="system-status">
+            <span class="status-dot"></span>
+            <div>
+                <strong>System Online</strong>
+                <small>All systems operational</small>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div>
+                <p class="eyebrow">AUTONOMOUS SEARCH & RESCUE</p>
+                <h1>Disaster Intelligence Dashboard</h1>
+                <p class="subtitle">
+                    Real-time monitoring, AI detection and rescue intelligence
+                </p>
+            </div>
+
+            <div class="live-status">
+                <span class="status-dot"></span>
+                LIVE SYSTEM
+            </div>
+
+        </header>
+
+
+        <!-- STAT CARDS -->
+        <section class="stats" id="dashboard">
+
+            <div class="stat-card">
+                <span>Survivors Detected</span>
+                <strong id="survivorCount">07</strong>
+                <small>+2 in last 15 min</small>
+            </div>
+
+            <div class="stat-card">
+                <span>Active Hazards</span>
+                <strong id="hazardCount">13</strong>
+                <small>5 high priority</small>
+            </div>
+
+            <div class="stat-card">
+                <span>Area Mapped</span>
+                <strong id="areaMapped">68%</strong>
+                <small>Target: 100%</small>
+            </div>
+
+            <div class="stat-card">
+                <span>Flight Endurance</span>
+                <strong id="flightTime">142 min</strong>
+                <small>Estimated remaining</small>
+            </div>
+
+        </section>
+
+
+        <!-- MAP + MISSION -->
+        <section class="content-grid">
+
+            <!-- MAP -->
+            <div class="panel map-panel" id="map">
+
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">GIS OPERATIONS</p>
+                        <h2>Live Disaster Map</h2>
+                    </div>
+
+                    <span class="map-live">
+                        ● LIVE
+                    </span>
+                </div>
+
+                <div class="map">
+
+                    <div class="map-grid"></div>
+
+                    <!-- Flight path -->
+                    <div class="flight-path"></div>
+
+                    <!-- Drone -->
+                    <div class="marker drone-marker" title="AERIS-01">
+                        D
+                    </div>
+
+                    <!-- Survivors -->
+                    <div class="marker survivor-marker s1" title="Survivor DET-001">
+                        S
+                    </div>
+
+                    <div class="marker survivor-marker s2" title="Survivor DET-003">
+                        S
+                    </div>
+
+                    <div class="marker survivor-marker s3" title="Survivor DET-006">
+                        S
+                    </div>
+
+                    <!-- Hazards -->
+                    <div class="marker hazard-marker h1" title="Fire Hazard">
+                        !
+                    </div>
+
+                    <div class="marker hazard-marker h2" title="Blocked Road">
+                        !
+                    </div>
+
+                    <!-- Map label -->
+                    <div class="map-label">
+                        DISASTER ZONE
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="legend">
+
+                        <div>
+                            <span class="legend-dot survivor"></span>
+                            Survivor
+                        </div>
+
+                        <div>
+                            <span class="legend-dot hazard"></span>
+                            Hazard
+                        </div>
+
+                        <div>
+                            <span class="legend-dot drone"></span>
+                            Drone
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MISSION STATUS -->
+            <div class="panel mission-panel" id="drone">
+
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">ACTIVE MISSION</p>
+                        <h2>Mission Status</h2>
+                    </div>
+
+                    <span class="mission-id">AR-2026-014</span>
+                </div>
+
+                <div class="mission-info">
+
+                    <div class="info-row">
+                        <span>Drone</span>
+                        <strong>AERIS-01</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Altitude</span>
+                        <strong id="altitude">84 m</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Speed</span>
+                        <strong id="speed">42 km/h</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Battery</span>
+                        <strong id="battery">76%</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>AI Confidence</span>
+                        <strong>94.7%</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Search Coverage</span>
+                        <strong id="coverage">68%</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="progress-section">
+
+                    <div class="progress-title">
+                        <span>Mission Progress</span>
+                        <strong id="progressText">68%</strong>
+                    </div>
+
+                    <div class="progress">
+                        <div id="progressBar"></div>
+                    </div>
+
+                </div>
+
+
+                <button class="route-button" onclick="optimizeRoute()">
+                    Optimize Rescue Route
+                </button>
+
+                <div id="routeMessage" class="route-message"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DETECTION DATABASE -->
+        <section class="panel detection-panel" id="detections">
+
+            <div class="panel-header">
+
+                <div>
+                    <p class="eyebrow">AI ANALYSIS</p>
+                    <h2>Detection Database</h2>
+                </div>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search detections..."
+                >
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Detection</th>
+                            <th>Location</th>
+                            <th>Sensor</th>
+                            <th>Confidence</th>
+                            <th>Priority</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="detectionTable">
+
+                        <tr>
+                            <td>DET-001</td>
+                            <td>Human / Survivor</td>
+                            <td>26.7351, 94.2034</td>
+                            <td>Thermal</td>
+                            <td>96%</td>
+                            <td><span class="priority high">HIGH</span></td>
+                            <td>14:32</td>
+                        </tr>
+
+                        <tr>
+                            <td>DET-002</td>
+                            <td>Blocked Road</td>
+                            <td>26.7342, 94.2041</td>
+                            <td>RGB + AI</td>
+                            <td>91%</td>
+                            <td><span class="priority medium">MEDIUM</span></td>
+                            <td>14:29</td>
+                        </tr>
+
+                        <tr>
+                            <td>DET-003</td>
+                            <td>Human / Survivor</td>
+                            <td>26.7368, 94.2052</td>
+                            <td>Thermal</td>
+                            <td>94%</td>
+                            <td><span class="priority high">HIGH</span></td>
+                            <td>14:27</td>
+                        </tr>
+
+                        <tr>
+                            <td>DET-004</td>
+                            <td>Damaged Structure</td>
+                            <td>26.7371, 94.2028</td>
+                            <td>RGB + AI</td>
+                            <td>88%</td>
+                            <td><span class="priority medium">MEDIUM</span></td>
+                            <td>14:24</td>
+                        </tr>
+
+                        <tr>
+                            <td>DET-005</td>
+                            <td>Fire / Hazard</td>
+                            <td>26.7339, 94.2062</td>
+                            <td>Thermal</td>
+                            <td>93%</td>
+                            <td><span class="priority high">HIGH</span></td>
+                            <td>14:20</td>
+                        </tr>
+
+                        <tr>
+                            <td>DET-006</td>
+                            <td>Human / Survivor</td>
+                            <td>26.7380, 94.2071</td>
+                            <td>Thermal</td>
+                            <td>92%</td>
+                            <td><span class="priority high">HIGH</span></td>
+                            <td>14:17</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- BOTTOM CARDS -->
+        <section class="bottom-grid" id="analytics">
+
+            <div class="panel small-panel">
+
+                <p class="eyebrow">SENSORS</p>
+                <h2>Multi-Sensor Intelligence</h2>
+
+                <div class="sensor">
+                    <span>RGB Camera</span>
+                    <strong>ONLINE</strong>
+                </div>
+
+                <div class="sensor">
+                    <span>Thermal Camera</span>
+                    <strong>ONLINE</strong>
+                </div>
+
+                <div class="sensor">
+                    <span>Radar / mmWave</span>
+                    <strong>ONLINE</strong>
+                </div>
+
+            </div>
+
+
+            <div class="panel small-panel">
+
+                <p class="eyebrow">RESCUE PRIORITY</p>
+                <h2>Current Priorities</h2>
+
+                <div class="priority-item">
+                    <span>01</span>
+                    <div>
+                        <strong>Survivor Cluster A</strong>
+                        <small>High priority</small>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <span>02</span>
+                    <div>
+                        <strong>Fire Zone B</strong>
+                        <small>Responder hazard</small>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <span>03</span>
+                    <div>
+                        <strong>Blocked Road C</strong>
+                        <small>Route obstruction</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
